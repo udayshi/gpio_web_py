@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Available GPIO</h3>
+<ul>
+    {% for device in configs.devices %}
+    <li>
+	    <button type="button" class="btn btn-{{device.button}}" onClick="toggleGPIO(this,{{device.pin_id}})" > {{ device.pin_id }} - {{ device.pin_name }}</button>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

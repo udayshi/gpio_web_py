@@ -1,0 +1,8 @@
+title: GPIO Console
+devices:
+  -
+    pin_id: 18
+    pin_name: Switch B
+  -
+    pin_id: 4
+    pin_name: Switch A 

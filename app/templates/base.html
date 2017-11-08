@@ -1,0 +1,103 @@
+<html>
+  <head>
+    {% if configs.title %}
+    <title>{{ configs.title }}</title>
+    {% else %}
+    <title>GPIO Console</title>
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+ * {
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    .container {
+      max-width: 350px;
+      margin:0 auto;
+    }
+    .jumbotron{
+      text-align: center;
+      background: #f1f1f1;
+      padding: 10px;
+    }
+    .btn-success {
+      color: #fff;
+      background-color: #5cb85c;
+      border-color: #4cae4c;
+    }
+    .btn-danger {
+      color: #fff;
+      background-color: #d9534f;
+      border-color: #d43f3a;
+    }
+    .btn {
+      display: inline-block;
+      padding: 6px 12px;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.42857143;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-image: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+
+
+    button{
+      min-width:200px;
+    }
+    li{
+      list-style:none;
+      padding:0px;
+      padding-bottom:20px;
+
+    }
+    ul{
+      padding:0px;
+      margin-top:25px;
+    }
+</style>
+
+  </head>
+  <body class="container">
+	  <div class="jumbotron">
+    {% block content %}{% endblock %}
+    	</div>
+  </body>
+
+<script>
+
+function callAjax(url, callback){
+    var xmlhttp;
+    // compatible with IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function(){
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+            callback(xmlhttp.responseText);
+        }
+    }
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+function toggleGPIO(e,id){
+	e.disabled=true;
+	callAjax('api/toggle/'+id,function(data){
+		var result=JSON.parse(data);
+		if(result.status=='ON'){
+			e.className='btn btn-success';
+		}else{
+			e.className='btn btn-danger';
+		}
+		e.disabled=false;
+	});
+}
+</script>
+</html>
